@@ -1,16 +1,10 @@
 ---
-author: 赵培州
-pubDatetime: 2026-08-05T09:00:00+08:00
-modDatetime: 2026-08-05T09:00:00+08:00
-title: "Agent = Model + Harness：为什么你的 AI 编码工具总是不稳定"
-slug: agent-model-plus-harness
-featured: true
+title: Agent = Model + Harness：为什么你的 AI 编码工具总是不稳定
+published: 2026-08-05
+description: 真正决定 AI 编码工具能不能在项目里持续稳定产出的，不是模型，而是模型之外那一层工程规范（Harness）。
+tags: [AI, Agent, 工作流]
+category: AI 应用
 draft: false
-tags:
-  - AI
-  - Agent
-  - 工作流
-description: "真正决定 AI 编码工具能不能在项目里持续稳定产出的，不是模型，而是模型之外那一层工程规范（Harness）。"
 ---
 
 很多人以为 AI 编码工具好不好用，取决于底层模型强不强。但用久了会发现一个现象：**同一个模型，有人用起来很稳，有人用几天就崩**。差别不在模型，而在模型之外的那一层——Harness。
