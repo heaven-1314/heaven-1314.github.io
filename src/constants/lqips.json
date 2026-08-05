@@ -14,5 +14,8 @@
   "src:assets/images/MobileWallpaper/m1.avif": "cccce0cbc0d59294c0",
   "public:assets/images/ad/ad1.webp": "a1b8b68a8e918c8f93",
   "src:assets/images/logo/firefly-light.png": "000000000000000000",
-  "src:assets/images/logo/firefly-dark.png": "ffffffffffffffffff"
+  "src:assets/images/logo/firefly-dark.png": "ffffffffffffffffff",
+  "src:assets/images/avatar.webp": "aeb9bac1c8c8d3d7cf",
+  "public:assets/images/sponsor/wechat.png": "58be8755be8696d5b4",
+  "public:assets/images/sponsor/alipay.jpg": "8fb0de91b1de6893ce"
 }
