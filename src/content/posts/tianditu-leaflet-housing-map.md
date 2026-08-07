@@ -70,7 +70,7 @@ url = "http://api.tianditu.gov.cn/drive?type=drive&postStr=" + urllib.parse.quot
 ```nginx
 location ~ ^/tdt/vec/(\d+)/(\d+)/(\d+)\.png$ {
     set $tk "你的KEY";
-    proxy_pass http://<瓦片服务器>/vec_w/wmts?SERVICE=WMTS&...&tk=$tk;
+    proxy_pass http://tile.your-domain.com/vec_w/wmts?SERVICE=WMTS&...&tk=$tk;
     proxy_set_header User-Agent "curl/7.68.0";
     proxy_set_header Referer "";
     proxy_set_header Origin "";
