@@ -1,7 +1,7 @@
 ---
 title: "一份342页PDF转Word的活，逼我把6.3GB大模型塞进了8GB笔记本"
 published: 2026-08-06
-description: "百度Unlimited-OCR本地部署全纪录:8GB显存、Blackwell无声失败、Windows反超WSL2、大PDF逐页架构——两天踩坑记。"
+description: "百度Unlimited-OCR本地部署全纪录：8GB显存、Blackwell无声失败、Windows反超WSL2、大PDF逐页架构——两天踩坑记。"
 tags: [大模型部署, OCR, 本地推理, 显存优化, Unlimited-OCR]
 category: 工程实践
 draft: false
@@ -66,7 +66,7 @@ trust_remote_code 模型在 Windows 上慎用 `low_cpu_mem_usage`,有段错误�
 
 这是最核心的一个坑,也是我觉得最值得写的一坑。
 
-Unlimited-OCR 不是号称"无限上下文、一次性长文档解析"吗?那我第一反应是:342 页一股脑塞给它,`model.infer_multi()` 一次搞定,多爽。
+Unlimited-OCR 不是号称"无限上下文、一次性长文档解析"吗?那我第一反应是：342 页一股脑塞给它,`model.infer_multi()` 一次搞定,多爽。
 
 结果**全废**。342 页长文档,token 截断、OOM,什么都跑不出来。
 
@@ -80,7 +80,7 @@ Unlimited-OCR 不是号称"无限上下文、一次性长文档解析"吗?那我
 
 正确做法:`infer_multi()` 是给"几张图一起识别"用的,不是给"几百页文档一起理解"用的。大 PDF 必须逐页推理,靠前端聚合结果。这是架构红线。
 
-## 第三关:8GB 显存,怎么塞 6.3GB 模型
+## 第三关：8GB 显存,怎么塞 6.3GB 模型
 
 这是整件事最反直觉的部分。
 
@@ -92,7 +92,7 @@ Unlimited-OCR 不是号称"无限上下文、一次性长文档解析"吗?那我
 
 **诊断方法**：加载后打印 `model.hf_device_map` 的 Counter,看层在 cuda vs cpu 的分布。GPU 利用率低,第一件事不是怀疑 batch,是确认层分布。
 
-## 反直觉高潮:Windows 原生居然赢了 WSL2
+## 反直觉高潮：Windows 原生居然赢了 WSL2
 
 我想更快,试了 WSL2 + SGLang(一个推理框架)。结果这条路彻底走不通,而且原因很反直觉:
 
@@ -102,7 +102,7 @@ Unlimited-OCR 不是号称"无限上下文、一次性长文档解析"吗?那我
 
 也就是说,在 Windows 原生下,8GB 是"8GB + 共享内存兜底";在 WSL2 下,8GB 是**硬墙**。
 
-**结论:8GB 卡只能 Windows 原生 Transformers;SGLang 至少要 12GB 显存才有意义。**
+**结论：8GB 卡只能 Windows 原生 Transformers;SGLang 至少要 12GB 显存才有意义。**
 
 很多人下意识觉得"Linux/WSL2 跑 AI 更专业",在小显存这个场景里,这个直觉是错的。
 
@@ -127,7 +127,7 @@ C:\Users\Legion\Unlimited-OCR\
 2. **`save_results=False`**：去掉每页用 matplotlib 画带框图的开销(前端用不到),GPU 不用空等。
 3. **双层文本清理**：模型原始输出是 `<|det|>title [46,81,521,134]<|/det|>实际文本` 这种带检测框坐标的——流式时用 `clean_stream` 缓冲隐藏未闭合标记,整页完成后用官方 `remove_det` 规整。
 
-实测结果:33MB / 342 页招标文件,**逐页流式解析成功,中文识别精准,GPU 利用率 ~99%**。
+实测结果：33MB / 342 页招标文件,**逐页流式解析成功,中文识别精准,GPU 利用率 ~99%**。
 
 ## 一些可以复用的认知
 
@@ -151,16 +151,16 @@ C:\Users\Legion\Unlimited-OCR\
 - [ ] trust_remote_code 模型：避免 `low_cpu_mem_usage=True`
 - [ ] 小显存:`device_map="auto"` + `max_memory` 宽松,依赖 Windows 共享内存
 - [ ] 加载后打印 `hf_device_map` 确认层分布全在 GPU
-- [ ] 大 PDF:PyMuPDF 拆页 → 逐页推理,**不要** infer_multi
-- [ ] 流式:stdout 劫持方案
+- [ ] 大 PDF：PyMuPDF 拆页 → 逐页推理,**不要** infer_multi
+- [ ] 流式：stdout 劫持方案
 - [ ] 文本后处理：清理 det 等版面标记
 - [ ] Windows bat 脚本用 GBK 编码(cmd.exe 用 GBK 解析 .bat)
-- [ ] WSL2:venv 建在 ext4 `~/`,别放 `/mnt/c`(drvfs 慢且易出权限问题)
+- [ ] WSL2：venv 建在 ext4 `~/`,别放 `/mnt/c`(drvfs 慢且易出权限问题)
 
 ## 最后
 
 342 页 PDF 最终是转出来了,中文识别很准,表格和版面还原也比我预期好。整个过程最值钱的不是 OCR 结果本身,是踩出来的一套"消费级硬件跑大模型"的工程直觉——什么能省、什么不能省、哪些直觉是错的。
 
-Unlimited-OCR 仓库:https://github.com/baidu/Unlimited-OCR
+Unlimited-OCR 仓库：https://github.com/baidu/Unlimited-OCR
 
 如果你也在小显存卡上折腾大模型,希望这篇能帮你少踩两个坑。
