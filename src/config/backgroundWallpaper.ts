@@ -60,7 +60,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		// 支持单个视频路径（字符串）或多个视频循环（数组，参考上面壁纸配置）
 		// 支持远程视频URL，本地视频请放在 public/assets/videos/ 目录下
 		// playerUrl: "/assets/videos/firefly.mp4",
-		playerUrl: "https://bed.twoleaf.cn/file/1785658612716_firefly.mp4",
+		playerUrl: "http://8.152.157.178:5002/videos/atmosphere.mp4",
 	},
 	// 横幅壁纸和全屏壁纸共享配置
 	common: {
