@@ -21,7 +21,17 @@ export const friendsPageConfig: FriendsPageConfig = {
 };
 
 // 友链配置
-export const friendsConfig: FriendLink[] = [];
+export const friendsConfig: FriendLink[] = [
+	{
+		title: "安落滢 Blog",
+		imgurl: "https://blog.anluoying.com/favicon.ico",
+		desc: "AI 工具与模型实践、Linux 运维、网络与开发踩坑",
+		siteurl: "https://blog.anluoying.com/",
+		tags: ["AI", "Linux", "运维"],
+		weight: 0,
+		enabled: true,
+	},
+];
 
 // 获取启用的友链并进行排序
 export const getEnabledFriends = (): FriendLink[] => {
